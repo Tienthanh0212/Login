@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 public interface UserService {
 
     void update (UserDTO userDTO);
@@ -15,7 +19,9 @@ public interface UserService {
     void delete (Integer id);
     void signup (UserDTO userDTO);
 
-    UserDTO signIn(UserDTO userDTO);
+    User signUp1(UserDTO userDTO);
+
+    boolean login(String username, String password);
 }
 
 @Service
@@ -37,6 +43,8 @@ class UserServiceImpl implements UserService{
     public void delete(Integer id) {
         userRepository.deleteById(id);
     }
+
+    //login su dung spring security
     @Override
     public void signup(UserDTO userDTO) {
         User user = new ModelMapper().map(userDTO, User.class);
@@ -50,16 +58,47 @@ class UserServiceImpl implements UserService{
         userDTO.setId(user.getId());
     }
 
+
+    //login khong su dung spring security
     @Override
-    public UserDTO signIn(UserDTO userDTO) {
+    public User signUp1(UserDTO userDTO) {
+        if (userRepository.findByUsername(userDTO.getUsername()) != null) {
+            throw new RuntimeException("Username already exists");
+        }
 
-        User user = userRepository.findByUsername(userDTO.getUsername());
-        if (user != null && new BCryptPasswordEncoder().matches(userDTO.getPassword(), user.getPassword())) {
+        String hashedPassword = hashPassword(userDTO.getPassword());
 
-            return new ModelMapper().map(user, UserDTO.class);
-        } else {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(hashedPassword);
+
+        return userRepository.save(user);
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            // Handle exception
+            e.printStackTrace();
             return null;
         }
     }
+
+    @Override
+    public boolean login(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        if (user == null || !passwordMatches(password, user.getPassword())) {
+            return false;
+        }
+        return true;
+    }
+    private boolean passwordMatches(String rawPassword, String hashedPassword) {
+        String hashedRawPassword = hashPassword(rawPassword);
+        return hashedRawPassword.equals(hashedPassword);
+    }
+
 
 }

@@ -30,17 +30,6 @@ public class JwtTokenService {
 
         return accessToken;
     }
-
-    //check xem token con hieu luc hay khong
-    public boolean isValidToken(String token){
-        try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return true;
-        } catch (Exception e){
-            //do nothing
-        }
-        return false;
-    }
     public String getUserName(String token) {
         try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)

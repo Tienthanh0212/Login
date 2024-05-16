@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true,jsr250Enabled = true)
 public class SecurityConfig {
 
+
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -50,8 +51,7 @@ public class SecurityConfig {
                              auth.requestMatchers("/admin/**","/cache/**")
                             .authenticated()
                             .anyRequest().permitAll();
-                })
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                }).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults());
 
 
