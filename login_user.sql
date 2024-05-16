@@ -1,0 +1,53 @@
+-- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
+--
+-- Host: localhost    Database: login
+-- ------------------------------------------------------
+-- Server version	8.0.33
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `password` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_sb8bbouer5wak8vyiiy4pf2bx` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'$2a$10$qtGysMBRktywFFyBOW.sce94eiDVkHJrW1FfJznRq5Zm7PeYSAldC','thanh'),(3,'12345','thanh1'),(4,'$2a$10$jkH0uSXrI338z9tVEjFKseKHrP0nYwLLKFnVjgu421MF.aIqB39/m','thanh2'),(17,'$2a$10$.hppckau01Id.s4/bbIVleYx2Fv4zcoqCwF.NzXsFnoFoFxR3itgm','thanh234'),(21,'$2a$10$iDeEtphqo6k6zd8cugMtDu9iUq/7kj6PrAR9EqFbSdkiLVxv/th.W','thanh2345'),(32,'$2a$10$z9KQo5910arKVSINuZ1kUONYzQ2r3Fuz4iOtey8ffGgKhjJ3bTKIO','thanh234567'),(33,'$2a$10$amOz3jmBIBOqDanYRzpnGOgnN0kjXYDqW41Uhm6njWJRvZ8zm4X3S','thanh23456789'),(35,'$2a$10$4Zx8iSvHxW/c7kX8h2QDhO4VhsB3y1YQ8znNFm2K6pfwSDB9ccUJi','thanh230456789'),(36,'$2a$10$hAozV.JBBNxBSyPfKkLMpeZl4CEgBmZF6QQMLWS82y.cKX/i2hzhC','thanh23045776789'),(37,'$2a$10$wTkOOI6fFa7G/ExFc0pMx.H9z/ncdyeLOZNXesL3AmZYdNJluD8kG','thanh0'),(38,'$2a$10$epk7BBG34psTUCvsBDPCoeOA9d7LFtjFcrgSKIIl03JC3Du6mjVYq','thanh3');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-05-16 14:17:01

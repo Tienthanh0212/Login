@@ -3,10 +3,8 @@ package com.example.login.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 
@@ -17,7 +15,6 @@ public class JwtTokenService {
     private long validity = 3600000;// 5 phut(Don vi ms)
     public String createToken(String username) {
         Claims claims = Jwts.claims().setSubject(username);
-//		claims.put(username, claims);
 
         Date now = new Date();
         Date exp = new Date(now.getTime() + validity);
