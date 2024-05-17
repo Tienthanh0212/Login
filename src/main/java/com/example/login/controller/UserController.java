@@ -53,28 +53,38 @@ public class UserController {
             System.out.println(authentication);
             SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             //if login success, jwt-gen token(string)
-            return ResponseDTO.<String>builder()
-                    .code(String.valueOf(HttpStatus.OK.value()))
-                    .message("LOGIN SUCCESS")
-                    .data(jwtTokenService.createToken(username))
-                    .build();
+            return new ResponseDTO<>("LOGINSUCCESS", "User registered successfully", jwtTokenService.createToken(username));
         } catch (Exception e) {
             // Authentication failed, return error response
-            return ResponseDTO.<String>builder()
-                    .code(String.valueOf(HttpStatus.UNAUTHORIZED.value()))
-                    .message("LOGIN FAILED: Invalid username or password")
-                    .build();
+            return new ResponseDTO<>("LOGINFAIL", "Username or password is incorrect", null);
         }
     }
-    @PostMapping("/login1")
-    public ResponseDTO<String> signUp(@RequestBody UserDTO userDTO) {
+    @PostMapping("/registerWithoutSecurity")
+    public ResponseDTO<String> signUp(@RequestParam("username") String username,
+                                      @RequestParam("password") String password) {
         try {
-            userService.signUp1(userDTO);
-            return new ResponseDTO<>("LOGINSUCCESS", "User registered successfully", null);
+            userService.signUp1(username, password);
+            return new ResponseDTO<>("RegisterSuccess", "User registered successfully", null);
         } catch (Exception e) {
-            return new ResponseDTO<>("LOGINFAIL", e.getMessage(), null);
+            return new ResponseDTO<>("RegisterFail", e.getMessage(), null);
         }
     }
+
+    @PostMapping("/loginWithoutSecurity")
+    public ResponseDTO<String> login1(@RequestParam("username") String username,
+                                      @RequestParam("password") String password) {
+        try {
+            boolean isSuccess = userService.login(username, password);
+            if (isSuccess) {
+                return new ResponseDTO<>("LoginSuccess", "User Login successfully", null);
+            } else {
+                return new ResponseDTO<>("LoginFailed", "Username or password is incorrect", null);
+            }
+        } catch (Exception e) {
+            return new ResponseDTO<>("LoginFailed", "An error occurred", null);
+        }
+    }
+
 
 
 }

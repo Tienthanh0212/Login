@@ -19,7 +19,7 @@ public interface UserService {
     void delete (Integer id);
     void signup (UserDTO userDTO);
 
-    User signUp1(UserDTO userDTO);
+    User signUp1(String username,  String password);
 
     boolean login(String username, String password);
 }
@@ -61,15 +61,15 @@ class UserServiceImpl implements UserService{
 
     //login khong su dung spring security
     @Override
-    public User signUp1(UserDTO userDTO) {
-        if (userRepository.findByUsername(userDTO.getUsername()) != null) {
+    public User signUp1(String username, String password) {
+        if (userRepository.findByUsername(username) != null) {
             throw new RuntimeException("Username already exists");
         }
 
-        String hashedPassword = hashPassword(userDTO.getPassword());
+        String hashedPassword = hashPassword(password);
 
         User user = new User();
-        user.setUsername(userDTO.getUsername());
+        user.setUsername(username);
         user.setPassword(hashedPassword);
 
         return userRepository.save(user);
@@ -95,9 +95,10 @@ class UserServiceImpl implements UserService{
         }
         return true;
     }
+
     private boolean passwordMatches(String rawPassword, String hashedPassword) {
-        String hashedRawPassword = hashPassword(rawPassword);
-        return hashedRawPassword.equals(hashedPassword);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(rawPassword, hashedPassword);
     }
 
 
