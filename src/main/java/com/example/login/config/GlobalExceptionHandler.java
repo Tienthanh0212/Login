@@ -1,4 +1,4 @@
-package com.example.login.exception;
+package com.example.login.config;
 import com.example.login.DTO.BaseResponse;
 import com.example.login.DTO.ErrorDetails;
 import com.example.login.entity.ErrorLog;
