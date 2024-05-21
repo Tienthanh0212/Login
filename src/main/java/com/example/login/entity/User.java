@@ -1,11 +1,9 @@
 package com.example.login.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
 
 @Entity
 @Setter
@@ -15,9 +13,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
     @Column(unique = true)
     private String username;
 
+    @NotNull
     private String password;
 
 }
