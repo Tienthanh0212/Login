@@ -20,12 +20,16 @@ class SyslogServiceImpl implements  SyslogService{
 
     @Override
     public List<MonthlyRecordCountDTO> getMonthlyRecordCountsBetweenDates(SysLogDTO sysLogDTO) {
-        List<Object[]> results = syslogRepository.findSysLogs(
+        List<Object[]> results = syslogRepository.findCountByMonth(
                 sysLogDTO.getStartDate(), sysLogDTO.getEndDate(), sysLogDTO.getMethod()
         );
 
         return results.stream()
-                .map(record -> new MonthlyRecordCountDTO((String) record[0], ((Number) record[1]).longValue()))
+                .map(record -> {
+                    String month = String.format("%d/%02d", (int) record[0], (int) record[1]);
+                    long count = ((Number) record[2]).longValue();
+                    return new MonthlyRecordCountDTO(month, count);
+                })
                 .collect(Collectors.toList());
     }
 }
