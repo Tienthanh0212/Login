@@ -1,5 +1,7 @@
 package com.example.login.service;
 
+import com.example.login.entity.User;
+import com.example.login.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,18 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Service
 public class EmailService {
     @Autowired
     JavaMailSender javaMailSender;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
 
     public void sendEmail(String to, String subject, String body){
@@ -34,6 +43,10 @@ public class EmailService {
 
         String subject="Xuất hiện người dùng đăng nhập lỗi";
 
-        sendEmail("thanhpanda954@gmail.com",subject,body);
+        List<User> admins = userService.getAdminUsers();
+
+        for (User admin : admins) {
+            sendEmail(admin.getEmail(), subject, body);
+        }
     }
 }

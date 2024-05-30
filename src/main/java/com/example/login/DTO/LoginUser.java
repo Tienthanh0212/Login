@@ -16,7 +16,7 @@ import java.util.Collection;
 public class LoginUser extends User {
 
     private static final long serialVersionUID = 1L;
-    private int id;
+    private Long id;
     private String name;
 
     public LoginUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {

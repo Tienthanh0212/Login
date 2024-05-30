@@ -1,6 +1,7 @@
 package com.example.login.config;
 import com.example.login.DTO.BaseResponse;
 import com.example.login.DTO.ErrorDetails;
+import com.example.login.DTO.UserException;
 import com.example.login.entity.ErrorLog;
 import com.example.login.repository.ErrorLogRepository;
 import com.example.login.service.EmailService;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,13 +26,12 @@ public class GlobalExceptionHandler {
     EmailService emailService;
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDetails> handleGlobalException(Exception ex) {
-
-        ErrorDetails errorDetail = new ErrorDetails(ex.getMessage(), Arrays.toString(ex.getStackTrace()), new Date());
+    public ResponseEntity<?> handleGlobalException(Exception ex) {
 
         emailService.sendMailAdmin("User registration failed " );
         saveErrorToDatabase(ex);
-        return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(500)
+                .body(new UserException(500, "Internal Server Error","Error Server"));
     }
     private void saveErrorToDatabase(Exception errorDetails) {
         ErrorLog errorLog = ErrorLog.builder()
@@ -54,5 +53,4 @@ public class GlobalExceptionHandler {
         saveErrorToDatabase(ex);
         return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
     }
-
 }
