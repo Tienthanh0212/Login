@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class MonthlyRecordCountDTO {
     private String month;
-    private Long count;
+    private Number count;
 }

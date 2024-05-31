@@ -1,6 +1,8 @@
 package com.example.login.DTO;
 
 import lombok.*;
+
+import java.time.YearMonth;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -8,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class SysLogDTO {
-    private Date startDate;
-    private Date endDate;
+    private YearMonth startDate;
+    private YearMonth endDate;
     private String method;
 }
