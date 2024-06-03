@@ -1,7 +1,9 @@
-package com.example.login.DTO;
+package com.example.login.DTO.Syslog;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor

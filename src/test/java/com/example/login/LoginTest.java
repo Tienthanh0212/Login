@@ -1,7 +1,7 @@
 package com.example.login;
 
 
-import com.example.login.DTO.UserDTO;
+import com.example.login.DTO.User.UserDTO;
 import com.example.login.DTO.UserException;
 import com.example.login.controller.UserController;
 import jakarta.servlet.http.HttpServletRequest;

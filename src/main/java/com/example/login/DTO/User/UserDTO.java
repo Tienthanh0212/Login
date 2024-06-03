@@ -1,4 +1,4 @@
-package com.example.login.DTO;
+package com.example.login.DTO.User;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

@@ -1,7 +1,7 @@
 package com.example.login.service;
 
 import com.example.login.DTO.SignUpDTO;
-import com.example.login.DTO.UserDTO;
+import com.example.login.DTO.User.UserDTO;
 import com.example.login.DTO.UserException;
 import com.example.login.entity.User;
 import com.example.login.internationalize.MyLocaleResolver;
